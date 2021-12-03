@@ -1,0 +1,26 @@
+.progress {
+    position: relative;
+    margin: 20px 0;
+    width: 100%;
+    height: 10px;
+    background-color: rgba(255, 255, 255, 0.1);
+    & .play {
+        position: absolute;
+        z-index: 10;
+        height: 100%;
+        background-color: #C0392B;
+        z-index: 10;
+    }
+    & .hover {
+        position: absolute;
+        z-index: 9;
+        height: 100%;
+        width: 100%;
+        &:hover {
+            background-color: darkblue;
+        }
+    }
+    & .rewind {
+        width: 100%;
+    }
+}

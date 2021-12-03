@@ -1,0 +1,18 @@
+.folders {
+    background-color: rgba(255, 255, 255, 0.05);
+    height: 100%;
+    overflow: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.1) rgba(255, 255, 255, 0.1);
+
+    &::-webkit-scrollbar {
+        width: 8px;
+        height: 12px;
+        padding: 5px;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+        background-color: rgba(255, 255, 255, 0.1);
+        // border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+}
