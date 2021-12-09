@@ -30,8 +30,6 @@ const Chapter = (props) => {
 						fileUrl={item.fileUrl}
 						videoUrl={props.videoUrl}
 						subtitle={getSubtitle(item.fileName, subtitle)}
-						setVideoUrl={props.setVideoUrl}
-						setSubtitleUrl={props.setSubtitleUrl}
 						key={item.fileName}
 					/>
 				))}

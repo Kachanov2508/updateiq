@@ -3,14 +3,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFolder } from "@fortawesome/free-solid-svg-icons";
 import classes from "./Folder.module.scss";
 import { useContext } from "react";
-import NavbarContext from '../../../../context/NavbarProvider'
+import NavbarContext from '../../../../context/NavbarProvider';
+import CourseContext from "../../../../context/CourseProvider";
 
 const Folder = (props) => {
 	const showFolder = window.location.pathname === `/courses/${props.slug}` ? `${classes.folder} ${classes.active}` : `${classes.folder}`;
 	const hidenFolder = window.location.pathname === `/courses/${props.slug}` ? `${classes.hidenFolder} ${classes.active}` : `${classes.hidenFolder}`;
 
 	const {openNavbar} = useContext(NavbarContext)
-
 
 	return (
 		<>

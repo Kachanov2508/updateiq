@@ -21,7 +21,7 @@ const Category = (props) => {
 						<FontAwesomeIcon icon={props.icon} size={props.size} color={props.color} />
 						<h2>{props.name}</h2>
 					</div>
-					{openCategory && props.courses.map((item) => <Folder slug={item.slug} name={item.name} key={item.slug} />)}
+					{openCategory && props.courses.map((item) => <Folder slug={item.slug} name={item.name} key={item.slug} course={item} />)}
 				</div>
 			) : (
 				<div className={classes.hidenWrapper}>
@@ -32,7 +32,7 @@ const Category = (props) => {
 					{openCategory && (
 						<div className={classes.folderWrapper} onMouseEnter={() => setOpenCategory(true)} onMouseLeave={() => setOpenCategory(false)} >
 							{props.courses.map((item) => (
-								<Folder slug={item.slug} name={item.name} key={item.slug} />
+								<Folder slug={item.slug} name={item.name} key={item.slug} course={item} />
 							))}
 						</div>
 					)}

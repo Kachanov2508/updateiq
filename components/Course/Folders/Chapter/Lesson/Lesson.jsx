@@ -1,12 +1,15 @@
 import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import classes from "./Lesson.module.scss";
 import Icon from "../../../../UI/Icon/Icon";
+import { useContext } from "react";
+import CourseContext from "../../../../../context/CourseProvider";
 
 const Lesson = (props) => {
+	const {setVideo, setSubtitle} = useContext(CourseContext)
 
 	const clickHandler = () => {
-		props.setSubtitleUrl(props.subtitle.fileUrl);
-		props.setVideoUrl(props.fileUrl);
+		setVideo(props.fileUrl)
+		setSubtitle(props.subtitle.fileUrl)
 	};
 
 	const activeClass = props.videoUrl === props.fileUrl ? `${classes.lesson} ${classes.active}` : `${classes.lesson}`;

@@ -35,19 +35,16 @@ const SpeechSinthesis = (props) => {
 	}
 
 	return (
-		<>
-			{props.videoUrl && <VideoPlayer
+		<VideoPlayer
 				videoUrl={`/uploads/${props.videoUrl}`}
 				subtitleUrl={`/uploads/${props.subtitleUrl}`}
 				activeCues={activeCues}
 				setActiveCues={setActiveCues}
-				showSubtitle={showSubtitle}
 				speakVoice={speakVoice}
 				setSpeakVoice={setSpeakVoice}
 				showSubtitle={showSubtitle}
 				setShowSubtitle={setShowSubtitle}
-			/>}
-		</>
+			/>
 	);
 };
 

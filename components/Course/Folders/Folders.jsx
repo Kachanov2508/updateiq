@@ -10,8 +10,6 @@ const Folders = (props) => {
 					folderName={item.folderName}
 					files={item.files}
 					key={item.folderName}
-                    setVideoUrl={props.setVideoUrl}
-                    setSubtitleUrl={props.setSubtitleUrl}
 					videoUrl={props.videoUrl}
 				/>
 			))}
