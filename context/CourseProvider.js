@@ -11,8 +11,9 @@ export const CourseProvider = (props) => {
 	const [subtitle, setSubtitle] = useState('');
 
 	// Получаем курс
-	const getCourse = async () => {
-		const response = await axios.get(`/api${router.asPath}`);
+	const getCourse = async (path) => {
+		// const response = await axios.get(`/api${router.asPath}`);
+		const response = await axios.get(path);
 		const data = await response.data;
         setCourse(data.course);
 	};
@@ -26,7 +27,7 @@ export const CourseProvider = (props) => {
 				return 0;
 			});
 
-			// Сортируем файлы в первай папке
+			// Сортируем файлы в первой папке
 			const firstFile = firstFolder[0].files.sort(function (a, b) {
 				if (a.fileName.toLowerCase() < b.fileName.toLowerCase()) return -1;
 				if (a.fileName.toLowerCase() > b.fileName.toLowerCase()) return 1;
@@ -45,8 +46,9 @@ export const CourseProvider = (props) => {
 	}, [course]);
 
 	// Запускаем getCourse при изменении пути в браузере
+
 	useEffect(() => {
-		getCourse();
+		getCourse(`/api/courses/${router.query.course}`);
 	}, [router.asPath]);
 
 	return (

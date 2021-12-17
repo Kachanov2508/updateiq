@@ -1,5 +1,7 @@
-import NavBar from "../components/NavBar/NavBar";
+import Navbar from "../components/Navbar/Navbar";
 import { NavbarProvider } from "../context/NavbarProvider";
+import { CourseProvider } from "../context/CourseProvider";
+
 import "../styles/globals.css";
 
 function MyApp({ Component, pageProps }) {
@@ -7,7 +9,7 @@ function MyApp({ Component, pageProps }) {
 		<div className="layout">
 				<div className="navbar">
 					<NavbarProvider>
-						<NavBar />
+						<Navbar />
 					</NavbarProvider>
 				</div>
 				<div className="content">

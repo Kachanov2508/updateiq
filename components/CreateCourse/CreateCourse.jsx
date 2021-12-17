@@ -4,7 +4,7 @@ import slugify from "slugify";
 
 import "bootstrap/dist/css/bootstrap.css";
 
-const createCourse = () => {
+const CreateCourse = () => {
 	const [files, setFiles] = useState([]);
 	const [author, setAuthor] = useState("");
 	const [category, setCategory] = useState("react");
@@ -45,7 +45,7 @@ const createCourse = () => {
 					"content-type": "multipart/form-data",
 					dirPath: dirPath,
 					// onUploadProgress: (event) => {
-					// 	console.log(`Current progress:`, Math.round((event.loaded * 100) / event.total));
+					// console.log(`Current progress:`, Math.round((event.loaded * 100) / event.total));
 					// },
 				},
 			});
@@ -54,10 +54,12 @@ const createCourse = () => {
 
 			const serchFolder = course.folders.find((item) => item.folderName === folderName);
 
+			let slugFile = fileName.replace(/ '.mp4', '.vtt' /, "")
+			slugFile = slugify(slugFile.toLowerCase(), { remove: /[*+~.()'"!:@]/g });
 			if (!serchFolder) {
-				course.folders.push({ folderName, files: [{ fileName, fileUrl }] });
+				course.folders.push({ folderName, files: [{ fileName, fileUrl, slug: slugFile }] });
 			} else {
-				serchFolder.files.push({ fileName, fileUrl });
+				serchFolder.files.push({ fileName, fileUrl, slug: slugFile });
 			}
 		}
 		await axios.post("/api/admin/upload/send-data-to-db", course);
@@ -99,4 +101,4 @@ const createCourse = () => {
 	);
 };
 
-export default createCourse;
+export default CreateCourse;

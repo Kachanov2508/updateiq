@@ -17,17 +17,15 @@ const Chapter = (props) => {
 	return (
 		<>
 			<div onClick={() => setOpen(!open)} className={classes.chapter}>
-				{open ? (
-					<Icon icon={faFolderOpen} text={props.folderName} />
-					) : (
-					<Icon icon={faFolder} text={props.folderName} />
-				)}
+				<Icon icon={open ? faFolderOpen : faFolder} text={props.folderName} />
 			</div>
 			{open &&
 				video.map((item) => (
 					<Lesson
-						name={item.fileName.replace(".mp4", "")}
+						name={item.fileName.replace(/ '.mp4', '.vtt' /, "")}
 						fileUrl={item.fileUrl}
+						slugFile={item.slug}
+						courseSlug={props.courseSlug}
 						videoUrl={props.videoUrl}
 						subtitle={getSubtitle(item.fileName, subtitle)}
 						key={item.fileName}

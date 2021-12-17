@@ -5,20 +5,20 @@ import Content from "./Content/Content";
 import Folders from "./Folders/Folders";
 import CourseContext from "../../context/CourseProvider";
 
-const Course = () => {
-	const { course, video, subtitle } = useContext(CourseContext);
+const Course = (props) => {
+	// const { course, video, subtitle } = useContext(CourseContext);
 
 	return (
 		<div className={classes.course}>
-			<h1 className={classes.heading}>{course.name}</h1>
+			<h1 className={classes.heading}>{props.course.name}</h1>
 			<div className={classes.video}>
-				<SpeechSynthesis videoUrl={video} subtitleUrl={subtitle} />
+				<SpeechSynthesis videoUrl={props.video} subtitleUrl={props.subtitle} />
 			</div>
 			<div className={classes.content}>
-				<Content author={course.author} duration={course.duration} description={course.description} />
+				<Content author={props.course.author} duration={props.course.duration} description={props.course.description} />
 			</div>
 			<div className={classes.folders}>
-				<Folders folders={course.folders} videoUrl={video} />
+				<Folders folders={props.course.folders} videoUrl={props.video} courseSlug={props.course.slug} />
 			</div>
 		</div>
 	);

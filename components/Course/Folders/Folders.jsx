@@ -11,6 +11,7 @@ const Folders = (props) => {
 					files={item.files}
 					key={item.folderName}
 					videoUrl={props.videoUrl}
+					courseSlug={props.courseSlug}
 				/>
 			))}
 		</div>
