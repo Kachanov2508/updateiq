@@ -1,7 +1,12 @@
+import Navbar from "../components/NavBar/NavBar";
+import Layout from "../components/UI/Layout/Layout";
+
 export default function Home() {
 	return (
 		<>
-			<h1>Home Page</h1>
+			<Layout>
+				<h1>Home Page</h1>
+			</Layout>
 		</>
 	);
 }
