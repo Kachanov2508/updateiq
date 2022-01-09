@@ -1,4 +1,4 @@
-import Navbar from "../components/Navbar/Navbar";
+// import Navbar from "../components/Navbar/Navbar";
 // import { NavbarProvider } from "../context/NavbarProvider";
 import { CourseProvider } from "../context/CourseProvider";
 
