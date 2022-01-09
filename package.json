@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p $PORT",
     "lint": "next lint",
     "heroku-postbuild": "npm run build"
   },
@@ -26,7 +26,8 @@
     "react-dom": "17.0.2",
     "react-responsive": "*",
     "sass": "^1.41.1",
-    "slugify": "^1.6.0"
+    "slugify": "^1.6.0",
+    "string-width": "^4.2.3"
   },
   "devDependencies": {
     "eslint": "7.32.0",
