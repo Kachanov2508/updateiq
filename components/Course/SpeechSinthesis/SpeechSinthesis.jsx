@@ -15,7 +15,7 @@ const SpeechSinthesis = (props) => {
 		utterance.rate = 6;
 		speechSynthesis.onvoiceschanged = () =>
 			setVoices(speechSynthesis.getVoices());
-	});
+	}, []);
 
 	function getVoice(selectedVoice) {
 		const voice = voices.find((voice) => voice.name === selectedVoice);
