@@ -2,6 +2,9 @@
   "name": "updateiq",
   "version": "1.0.0",
   "private": false,
+  "engines": {
+    "node": "17.3.0"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
