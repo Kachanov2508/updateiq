@@ -1,11 +1,11 @@
 import classes from "./Layout.module.scss"
-import Navbar from "../../NavBar/Navbar";
+import Menu from "../../Menu/Menu";
 
 const Layout = ({children}) => {
     return (
         <>
             <div className="navbar">
-                <Navbar />
+                <Menu />
             </div>
             <div className={classes.layout}>
                 {children}
