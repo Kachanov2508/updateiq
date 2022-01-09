@@ -19,7 +19,7 @@ const Lesson = (props) => {
 
 	return (
 		<>
-			<Link href={`/courses/${props.courseSlug}/${props.slugFile}`}>
+			<Link href={`/courses/${props.courseSlug}/${props.slugFile}`} passHref>
 				<div className={activeClass}>
 					<Icon icon={faAngleRight} text={props.name} />
 				</div>
