@@ -1,4 +1,3 @@
-import Navbar from "../components/Navbar/Navbar";
 import Layout from "../components/UI/Layout/Layout";
 
 export default function Home() {
