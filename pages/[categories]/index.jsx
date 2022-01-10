@@ -1,6 +1,6 @@
 import Layout from "../../components/UI/Layout/Layout";
 
-const Courses = () => {
+const Categories = () => {
 	return (
 		<Layout>
 			<div>
@@ -10,4 +10,4 @@ const Courses = () => {
 	);
 };
 
-export default Courses;
+export default Categories;
