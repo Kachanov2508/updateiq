@@ -1,19 +1,23 @@
-import Folder from "./Folder/Folder";
-import { useState } from "react";
 import classes from "./Category.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
 const Category = (props) => {
-	const [openCategory, setOpenCategory] = useState(false);
+
+	const router = useRouter();
+
+	function toggleActivClass(path, link) {
+		return path == link ? `${classes.activ}` : "";
+	}
 
 	return (
-		<div>
-			<div onClick={() => setOpenCategory(!openCategory)} className={classes.category}>
+		<Link href={props.link || "/"} passHref>
+			<div className={`${classes.category} ${toggleActivClass(router.asPath, props.link)}`}>
 				<FontAwesomeIcon icon={props.icon} size={props.size} color={props.color} />
 				<h2>{props.name}</h2>
 			</div>
-			{openCategory && props.courses.map((item) => <Folder name={item.name} courseSlug={item.slug} fileSlug={item.folders[0].files[0].slug} key={item.slug} />)}
-		</div>
+		</Link>
 	);
 };
 

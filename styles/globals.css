@@ -29,13 +29,3 @@ ul {
 ul li {
   margin: 10px 0;
 }
-
-.layout {
-  display: flex;
-}
-
-
-
-.content {
-  padding: 20px 30px;
-}

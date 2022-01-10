@@ -4,11 +4,11 @@ import Menu from "../../Menu/Menu";
 const Layout = ({children}) => {
     return (
         <>
-            <div className="navbar">
-                <Menu />
-            </div>
             <div className={classes.layout}>
-                {children}
+                <Menu />
+                <div className={classes.content}>
+                    {children}
+                </div>
             </div>
         </>
     )

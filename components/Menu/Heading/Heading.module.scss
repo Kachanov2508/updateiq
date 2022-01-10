@@ -1,0 +1,23 @@
+.heading {
+    display: flex;
+    align-items: center;
+    column-gap: 15px;
+    padding: 20px;
+
+    & h1 {
+        cursor: pointer;
+        font-size: 25px;
+        font-weight: 300;
+    }
+
+    & .icon {
+        display: flex;
+        align-items: center;
+        column-gap: 1px;
+        transform: rotateY(180deg);
+    }
+}
+
+.activ {
+    background-color: rgba(255, 255, 255, 0.05);
+}

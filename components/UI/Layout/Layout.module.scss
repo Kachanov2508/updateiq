@@ -1,3 +1,9 @@
 .layout {
     display: flex;
 }
+
+.content {
+    background-color: rgba(255, 255, 255, 0.05);
+    padding: 20px 40px;
+    flex-grow: 1;
+}
