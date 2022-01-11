@@ -5,43 +5,42 @@ import { faClock, faUser, faGlobe, faDownload } from "@fortawesome/free-solid-sv
 
 const CoursePreview = (props) => {
 	return (
-		<section className={classes.coursePreview}>
-			<div className={classes.container}>
-				<div className={classes.left}>
-					<img src="https://miro.medium.com/max/1200/1*pHsEux2h8wc3-yNCQNwz0A.jpeg" alt="img" />
-				</div>
-				<div className={classes.right}>
-					<h2>{props.name}</h2>
-					<p>
-						Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sed officia minima aut est quibusdam quasi laborum dolorem,
-						assumenda sint laudantium at voluptate voluptatibus illum sunt iste rem dolores commodi ullam. Lorem ipsum dolor sit amet
-						consectetur, adipisicing elit. Sed officia minima aut est quibusdam quasi laborum dolorem, assumenda sint laudantium at
-						voluptate voluptatibus illum sunt iste rem dolores commodi ullam.
-					</p>
-					<div className={classes.bottom}>
-						<div className={classes.info}>
-                            <div className={classes.time}>
-                                <FontAwesomeIcon icon={faClock} />
-                                <span>25 ч.</span>
-                            </div>
-                            <div className={classes.author}>
-                                <FontAwesomeIcon icon={faUser} />
-                                <span>John Doe</span>
-                            </div>
-                            <div className={classes.lang}>
-                                <FontAwesomeIcon icon={faGlobe} />
-                                <span>Eng / Rus</span>
-                            </div>
-                            <div className={classes.lang}>
-                                <FontAwesomeIcon icon={faDownload} />
-                                <span>11.01.2022</span>
-                            </div>
-                        </div>
-                        <button>Подробнее</button>
+	<div className={classes.container}>
+		<div className={classes.photo}>
+			<img src="https://bs-uploads.toptal.io/blackfish-uploads/components/seo/content/og_image_file/og_image/777655/react-context-api-4929b3703a1a7082d99b53eb1bbfc31f.png" alt="img" />
+		</div>
+		<div className={classes.info}>
+			<div className={classes.heading}>
+				<h2>{props.name}</h2>
+			</div>
+			<div className={classes.description}>
+				Lorem ipsum dolor sit amet consectetur, adipisicing elit. Tempore porro corrupti impedit sunt deleniti earum, iure molestiae odit quas quam pariatur accusantium eius delectus repellat. Cupiditate similique commodi eaque aliquid. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Tempore porro corrupti impedit sunt deleniti earum, iure molestiae odit quas quam pariatur accusantium eius delectus repellat. Cupiditate similique commodi eaque aliquid.
+			</div>
+			<div className={classes.details}>
+				<div className={classes.icons}>
+					<div>
+						<FontAwesomeIcon icon={faClock} />
+						<span>25 ч.</span>
+					</div>
+					<div>
+						<FontAwesomeIcon icon={faUser} />
+						<span>John Doe</span>
+					</div>
+					<div>
+						<FontAwesomeIcon icon={faGlobe} />
+						<span>Eng / Rus</span>
+					</div>
+					<div>
+						<FontAwesomeIcon icon={faDownload} />
+						<span>11.01.2022</span>
 					</div>
 				</div>
+				<div className={classes.button}>
+					<button>Подробнее</button>
+				</div>
 			</div>
-		</section>
+		</div>
+	</div>
 	);
 };
 

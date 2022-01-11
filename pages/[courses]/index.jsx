@@ -2,9 +2,6 @@ import axios from "axios";
 import CoursePreview from "../../components/CoursePreview/CoursePreview";
 
 const Courses = ({ courses }) => {
-
-	console.log(courses);
-
 	return (
 		<>
 			<h1>Курсы</h1>
@@ -19,7 +16,7 @@ export async function getServerSideProps(context) {
 
 	const categoryName = context.params.courses;
 
-	const response = await axios.get(`/api/${categoryName}`)
+	const response = await axios.get(`http://localhost:3000/api/${categoryName}`)
 	const data = await response.data
 
 
