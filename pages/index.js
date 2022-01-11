@@ -1,9 +1,10 @@
-import Layout from "../components/UI/Layout/Layout";
-
-export default function Home() {
+const Home = () => {
 	return (
-		<Layout>
+		<div>
 			<h1>Home Page</h1>
-		</Layout>
-	);
+		</div>
+	)
 }
+
+export default Home;
+
