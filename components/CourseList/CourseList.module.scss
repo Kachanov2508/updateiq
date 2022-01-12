@@ -1,0 +1,14 @@
+.courseList {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 30px;
+    align-items: center;
+    justify-content: center;
+
+    @media (max-width: 1150px) { 
+        flex-direction: row;
+        flex-wrap: wrap;
+        column-gap: 30px;
+    }
+}

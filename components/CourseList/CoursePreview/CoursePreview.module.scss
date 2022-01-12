@@ -1,0 +1,113 @@
+.container {
+    max-width: 1300px;
+    background-color: rgba(255, 255, 255, 0.05);
+    display: grid;
+    grid-template-columns: 25% 75%;
+    grid-template-rows: 200px;
+    grid-template-areas: "photo info";
+
+    @media (max-width: 1150px) { 
+        max-width: 300px;
+        grid-template-columns: 300px;
+        grid-template-areas: 
+        "photo"
+        "info";
+    }
+}
+
+.photo {
+    grid-area: photo;
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+}
+
+.info {
+    grid-area: info;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.heading {
+    h2 {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+
+        @media (max-width: 1150px) { 
+            margin-bottom: 10px;
+        }
+    }
+}
+
+.description {
+    overflow: hidden;
+    display: -webkit-box;
+    word-wrap: break-word;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+
+    @media (max-width: 1150px) { 
+        -webkit-line-clamp: 5;
+    }
+}
+
+.details {
+    grid-area: details;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    @media (max-width: 1150px) { 
+        display: block;
+    }
+}
+
+.icons {
+    display: grid;
+    grid-template-columns: max-content max-content max-content max-content;
+    grid-template-rows: max-content;
+    align-content: center;
+    column-gap: 30px;
+
+    div {
+        display: flex;
+        column-gap: 10px;
+    }
+
+    @media (max-width: 1150px) {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: max-content max-content;
+        row-gap: 10px;
+        margin: 15px 0;
+    }
+}
+
+.button {
+    button {
+        padding: 7px 25px;
+        cursor: pointer;
+        border: none;
+        outline: none;
+        background-color: #2196f3;
+        color: #f7f7f7;
+        font-size: 15px;
+        font-weight: 400;
+
+        @media (max-width: 1150px) { 
+            width: 100%;
+        }
+    }
+
+    @media (max-width: 1150px) { 
+        text-align: center;
+    }
+}
+
+

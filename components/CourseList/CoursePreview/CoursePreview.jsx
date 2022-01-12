@@ -14,7 +14,7 @@ const CoursePreview = (props) => {
 				<h2>{props.name}</h2>
 			</div>
 			<div className={classes.description}>
-				Lorem ipsum dolor sit amet consectetur, adipisicing elit. Tempore porro corrupti impedit sunt deleniti earum, iure molestiae odit quas quam pariatur accusantium eius delectus repellat. Cupiditate similique commodi eaque aliquid. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Tempore porro corrupti impedit sunt deleniti earum, iure molestiae odit quas quam pariatur accusantium eius delectus repellat. Cupiditate similique commodi eaque aliquid.
+				Lorem ipsum dolor sit amet consectetur, adipisicing elit. Tempore porro corrupti impedit sunt deleniti earum, iure molestiae odit quas quam pariatur accusantium eius delectus repellat. Cupiditate similique commodi eaque aliquid. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Tempore porro corrupti impedit sunt deleniti earum, iure molestiae odit quas quam pariatur accusantium eius delectus repellat. Cupiditate similique commodi eaque aliquid. Cupiditate similique commodi eaque aliquid. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Tempore porro corrupti impedit sunt deleniti earum, iure molestiae odit quas quam pariatur accusantium eius delectus repellat. Cupiditate similique commodi eaque aliquid.
 			</div>
 			<div className={classes.details}>
 				<div className={classes.icons}>

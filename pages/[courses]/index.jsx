@@ -1,11 +1,17 @@
 import axios from "axios";
-import CoursePreview from "../../components/CoursePreview/CoursePreview";
+import Head from "next/head";
+import CourseList from "../../components/CourseList/CourseList";
 
 const Courses = ({ courses }) => {
+
 	return (
 		<>
+			<Head>
+				<title>Курсы</title>
+				<meta name="description" content="Курсы по разработке" />
+			</Head>
 			<h1>Курсы</h1>
-			{ courses.data.map(course => <CoursePreview key={course.id} name={course.name} />) }
+			<CourseList courses={courses} />
 		</>
 	);
 };
@@ -13,16 +19,13 @@ const Courses = ({ courses }) => {
 export default Courses;
 
 export async function getServerSideProps(context) {
-
 	const categoryName = context.params.courses;
-
-	const response = await axios.get(`http://localhost:3000/api/${categoryName}`)
-	const data = await response.data
-
+	const response = await axios.get(`http://localhost:3000/api/${categoryName}`);
+	const courses = await response.data;
 
 	return {
 		props: {
-			courses: data,
+			courses: courses.data,
 		},
 	};
 }
