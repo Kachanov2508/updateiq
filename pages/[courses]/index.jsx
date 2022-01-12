@@ -3,7 +3,6 @@ import Head from "next/head";
 import CourseList from "../../components/CourseList/CourseList";
 
 const Courses = ({ courses }) => {
-
 	return (
 		<>
 			<Head>
@@ -15,7 +14,6 @@ const Courses = ({ courses }) => {
 		</>
 	);
 };
-
 export default Courses;
 
 export async function getServerSideProps(context) {
