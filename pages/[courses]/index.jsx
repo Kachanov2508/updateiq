@@ -3,6 +3,7 @@ import Head from "next/head";
 import CourseList from "../../components/CourseList/CourseList";
 
 const Courses = ({ courses }) => {
+
 	return (
 		<>
 			<Head>
@@ -17,8 +18,9 @@ const Courses = ({ courses }) => {
 export default Courses;
 
 export async function getServerSideProps(context) {
+	console.log(process.env.domain);
 	const categoryName = context.params.courses;
-	const response = await axios.get(`http://localhost:3000/api/${categoryName}`);
+	const response = await axios.get(`${process.env.domain}/api/${categoryName}`);
 	const courses = await response.data;
 
 	return {
