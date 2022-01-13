@@ -2,8 +2,16 @@ import Image from "next/image";
 import classes from "./CoursePreview.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock, faUser, faGlobe, faDownload } from "@fortawesome/free-solid-svg-icons";
+import { useRouter } from "next/router";
 
 const CoursePreview = (props) => {
+
+	const router = useRouter();
+
+	function clickHandler() {
+		router.push(`${props.category}/${props.slug}`)
+	}
+
 	return (
 	<div className={classes.container}>
 		<div className={classes.photo}>
@@ -36,7 +44,7 @@ const CoursePreview = (props) => {
 					</div>
 				</div>
 				<div className={classes.button}>
-					<button>Подробнее</button>
+					<button onClick={clickHandler}>Подробнее</button>
 				</div>
 			</div>
 		</div>

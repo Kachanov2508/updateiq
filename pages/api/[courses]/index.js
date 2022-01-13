@@ -12,7 +12,7 @@ async function handler(req, res) {
 
     if(req.method === "GET") {
         const courses = await collection.find().toArray();
-        res.status(200).json({message: "Query saccess", data: courses});
+        res.status(200).json({data: courses});
     }
 
     // Закрыть соединение

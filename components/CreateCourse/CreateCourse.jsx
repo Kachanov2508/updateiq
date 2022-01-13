@@ -51,17 +51,39 @@ const CreateCourse = () => {
 			});
 
 			const fileUrl = files[f].webkitRelativePath;
-
-			const serchFolder = course.folders.find((item) => item.folderName === folderName);
-
 			let slugFile = fileName.replace(/ '.mp4', '.vtt' /, "")
 			slugFile = slugify(slugFile.toLowerCase(), { remove: /[*+~.()'"!:@]/g });
+
+			// Ищем папку
+			const serchFolder = course.folders.find((item) => item.folderName === folderName);
+
+			// Если папки нет то создаем, и добавляем файлы в созданную или в найденную папку
 			if (!serchFolder) {
 				course.folders.push({ folderName, files: [{ fileName, fileUrl, slug: slugFile }] });
 			} else {
 				serchFolder.files.push({ fileName, fileUrl, slug: slugFile });
 			}
 		}
+
+		// Сортируем папки по убыванию
+		course.folders = course.folders.sort(function (a, b) {
+			if (a.folderName.toLowerCase() < b.folderName.toLowerCase()) return -1;
+			if (a.folderName.toLowerCase() > b.folderName.toLowerCase()) return 1;
+			return 0;
+		});
+		
+		// Сортируем файлы по убыванию
+		course.folders.map(folder => {
+			folder.files = folder.files.sort(function (a, b) {
+				if (a.fileName.toLowerCase() < b.fileName.toLowerCase()) return -1;
+				if (a.fileName.toLowerCase() > b.fileName.toLowerCase()) return 1;
+				return 0;
+			});
+	
+		})
+
+		console.log(course.folders);
+
 		await axios.post("/api/admin/upload/send-data-to-db", course);
 
 		setAuthor("");
@@ -70,6 +92,9 @@ const CreateCourse = () => {
 		setLoad(false);
 		fileRef.current.value = null;
 	};
+
+	
+	console.log("1. Getting Started" < "11. Folder name");
 
 	return (
 		<div className="container">
