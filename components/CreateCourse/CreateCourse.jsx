@@ -103,7 +103,7 @@ const CreateCourse = () => {
 
 		console.log(course);
 
-		// Отправляем данныео о загруженном курсе в БД
+		// Отправляем объект курса в БД
 		await axios.post("/api/admin/upload/send-data-to-db", course);
 
 		// Удаляем все значения из input после загрузки
