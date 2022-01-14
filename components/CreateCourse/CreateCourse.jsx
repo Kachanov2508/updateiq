@@ -19,6 +19,7 @@ const CreateCourse = () => {
 
 		setLoad(true);
 
+		// Объект курса
 		let course = {
 			name: files[0].webkitRelativePath.split("/")[0],
 			slug: slugify(files[0].webkitRelativePath.split("/")[0].toLowerCase(), { remove: /[*+~.()'"!:@]/g }),
@@ -27,14 +28,31 @@ const CreateCourse = () => {
 			duration: hours,
 			description: description,
 			folders: [],
+			preview: ""
 		};
 
 		for (let f in files) {
+			// Путь к файлу
 			const path = files[f].webkitRelativePath.split("/");
+			// Имя папки
 			const folderName = path[1];
+			// Имя файла
 			const fileName = path[path.length - 1];
-
+			// Номер папки для сортировки
+			const folderNumber = folderName.split(".")[0];
+			// Номер файла для сортировки
+			const fileNumber = fileName.split(".")[0];
+			// url файла
+			const fileUrl = files[f].webkitRelativePath;
+			// Slug
+			let slugFile = fileName.replace('.mp4', "");
+			slugFile = slugFile.replace('.srt', "");
+			slugFile = slugFile.replace('.vtt', "");
+			slugFile = slugify(slugFile.toLowerCase(), { remove: /[*+~.()'"!:@]/g });
+			
+			// Удаляем имя файла из директории
 			path.pop();
+			// Директория к папке где будет лежать файл
 			let dirPath = path.join("/");
 
 			const formData = new FormData();
@@ -44,57 +62,57 @@ const CreateCourse = () => {
 				headers: {
 					"content-type": "multipart/form-data",
 					dirPath: dirPath,
-					// onUploadProgress: (event) => {
-					// console.log(`Current progress:`, Math.round((event.loaded * 100) / event.total));
-					// },
 				},
 			});
 
-			const fileUrl = files[f].webkitRelativePath;
-			let slugFile = fileName.replace(/ '.mp4', '.vtt' /, "")
-			slugFile = slugify(slugFile.toLowerCase(), { remove: /[*+~.()'"!:@]/g });
-
 			// Ищем папку
 			const serchFolder = course.folders.find((item) => item.folderName === folderName);
-
-			// Если папки нет то создаем, и добавляем файлы в созданную или в найденную папку
+			// Если папки нет то создаем, и добавляем файлы
 			if (!serchFolder) {
-				course.folders.push({ folderName, files: [{ fileName, fileUrl, slug: slugFile }] });
+				course.folders.push({ folderName, files: [{ fileName, fileUrl, slug: slugFile, fileNumber }], folderNumber });
 			} else {
-				serchFolder.files.push({ fileName, fileUrl, slug: slugFile });
+				// Добавляем файлы в найденную папку
+				serchFolder.files.push({ fileName, fileUrl, slug: slugFile, fileNumber });
 			}
 		}
-
-		// Сортируем папки по убыванию
-		course.folders = course.folders.sort(function (a, b) {
-			if (a.folderName.toLowerCase() < b.folderName.toLowerCase()) return -1;
-			if (a.folderName.toLowerCase() > b.folderName.toLowerCase()) return 1;
-			return 0;
-		});
 		
-		// Сортируем файлы по убыванию
-		course.folders.map(folder => {
-			folder.files = folder.files.sort(function (a, b) {
-				if (a.fileName.toLowerCase() < b.fileName.toLowerCase()) return -1;
-				if (a.fileName.toLowerCase() > b.fileName.toLowerCase()) return 1;
-				return 0;
-			});
-	
+		// Сортируем папки по убыванию
+		course.folders.sort(function(a, b) {
+			return a.folderNumber - b.folderNumber
 		})
 
-		console.log(course.folders);
+		// Сортируем файлы по убыванию
+		course.folders.map(folder => {
+			folder.files.sort(function(a, b){
+				return a.fileNumber - b.fileNumber
+			})
+		})
 
+		// Preview - Первое видео в курсе
+		course.preview = course.folders[0].files[0].fileUrl;
+
+
+		// Добавляем в объект свойства video и subtitle и сортируем по ним файлы
+		course.folders.map(folder => {
+			if(folder.files.filter(file => file.fileName.includes(".mp4"))) folder.video = folder.files.filter(file => file.fileName.includes(".mp4"));
+			if(folder.files.filter(file => file.fileName.includes(".srt"))) folder.subtitle = folder.files.filter(file => file.fileName.includes(".srt"));
+		});
+
+		// Удаляем из объекта свойство files
+		course.folders.map(folder => delete folder.files);
+
+		console.log(course);
+
+		// Отправляем данныео о загруженном курсе в БД
 		await axios.post("/api/admin/upload/send-data-to-db", course);
 
+		// Удаляем все значения из input после загрузки
 		setAuthor("");
 		setHours("");
 		setDescription("");
 		setLoad(false);
 		fileRef.current.value = null;
 	};
-
-	
-	console.log("1. Getting Started" < "11. Folder name");
 
 	return (
 		<div className="container">
