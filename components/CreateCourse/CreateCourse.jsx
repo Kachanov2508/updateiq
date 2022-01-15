@@ -102,12 +102,33 @@ const CreateCourse = () => {
 			}
 		});
 
-		// Добавляем subtitle к каждому video
+		// Редактируем свойиства у объекта курса
 		course.folders.map(folder => {
 			for(let i = 0; i < folder.video.length; i++) {
+				// Добавляем subtitle к каждому video
 				folder.video[i].subtitle = folder.subtitle[i];
+
+				// Удаляем из названия video .mp4
+				folder.video[i].fileName = folder.video[i].fileName.replace(".mp4", "");
+
+				// Удаляем из названия subtitle .srt
+				folder.subtitle[i].fileName = folder.subtitle[i].fileName.replace(".srt", "");
+				
+				// Удаляем fileNumber у video и subtitle (они больше не нужны после сортировки)
+				delete folder.video[i].fileNumber;
+				delete folder.subtitle[i].slug;
+				
+				// Удаляем slug у subtitle
+				delete folder.subtitle[i].fileNumber;
 			}
+			
+			// Удаляем folderNumber из folder (он больше не нужн после сортировки)
+			delete folder.folderNumber;
+
+			// Удаляем subtitle из folder
+			delete folder.subtitle;
 		});
+
 
 		// Удаляем из объекта свойство files
 		course.folders.map(folder => delete folder.files);
