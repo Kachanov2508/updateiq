@@ -91,7 +91,6 @@ const CreateCourse = () => {
 		// Preview - Первое видео в курсе
 		course.preview = course.folders[0].files[0].fileUrl;
 
-
 		// Добавляем в объект свойства video и subtitle и фильтруем в них файлы
 		course.folders.map(folder => {
 			if(folder.files.filter(file => file.fileName.includes(".mp4"))) {
@@ -121,7 +120,7 @@ const CreateCourse = () => {
 				// Удаляем slug у subtitle
 				delete folder.subtitle[i].fileNumber;
 			}
-			
+
 			// Удаляем folderNumber из folder (он больше не нужн после сортировки)
 			delete folder.folderNumber;
 
