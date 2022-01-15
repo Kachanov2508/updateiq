@@ -92,10 +92,21 @@ const CreateCourse = () => {
 		course.preview = course.folders[0].files[0].fileUrl;
 
 
-		// Добавляем в объект свойства video и subtitle и сортируем по ним файлы
+		// Добавляем в объект свойства video и subtitle и фильтруем в них файлы
 		course.folders.map(folder => {
-			if(folder.files.filter(file => file.fileName.includes(".mp4"))) folder.video = folder.files.filter(file => file.fileName.includes(".mp4"));
-			if(folder.files.filter(file => file.fileName.includes(".srt"))) folder.subtitle = folder.files.filter(file => file.fileName.includes(".srt"));
+			if(folder.files.filter(file => file.fileName.includes(".mp4"))) {
+				folder.video = folder.files.filter(file => file.fileName.includes(".mp4"));
+			}
+			if(folder.files.filter(file => file.fileName.includes(".srt"))) {
+				folder.subtitle = folder.files.filter(file => file.fileName.includes(".srt"));
+			}
+		});
+
+		// Добавляем subtitle к каждому video
+		course.folders.map(folder => {
+			for(let i = 0; i < folder.video.length; i++) {
+				folder.video[i].subtitle = folder.subtitle[i];
+			}
 		});
 
 		// Удаляем из объекта свойство files
