@@ -22,17 +22,17 @@ const CoursePreview = (props) => {
 				<h2>{props.name}</h2>
 			</div>
 			<div className={classes.description}>
-				Lorem ipsum dolor sit amet consectetur, adipisicing elit. Tempore porro corrupti impedit sunt deleniti earum, iure molestiae odit quas quam pariatur accusantium eius delectus repellat. Cupiditate similique commodi eaque aliquid. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Tempore porro corrupti impedit sunt deleniti earum, iure molestiae odit quas quam pariatur accusantium eius delectus repellat. Cupiditate similique commodi eaque aliquid. Cupiditate similique commodi eaque aliquid. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Tempore porro corrupti impedit sunt deleniti earum, iure molestiae odit quas quam pariatur accusantium eius delectus repellat. Cupiditate similique commodi eaque aliquid.
+				{props.description}
 			</div>
 			<div className={classes.details}>
 				<div className={classes.icons}>
 					<div>
 						<FontAwesomeIcon icon={faClock} />
-						<span>25 ч.</span>
+						<span>{`${props.duration} ч.`}</span>
 					</div>
 					<div>
 						<FontAwesomeIcon icon={faUser} />
-						<span>John Doe</span>
+						<span>{props.author}</span>
 					</div>
 					<div>
 						<FontAwesomeIcon icon={faGlobe} />

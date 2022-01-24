@@ -5,7 +5,15 @@ const CourseList = (props) => {
 	return (
 		<div className={classes.courseList}>
 			{props.courses.map((course) => (
-				<CoursePreview key={course._id} name={course.name} category={course.category} slug={course.slug} />
+				<CoursePreview
+					key={course._id}
+					name={course.name}
+					author={course.author}
+					category={course.category}
+					duration={course.duration}
+					description={course.description}
+					slug={course.slug}
+				/>
 			))}
 		</div>
 	);

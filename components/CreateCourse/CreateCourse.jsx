@@ -28,7 +28,8 @@ const CreateCourse = () => {
 			duration: hours,
 			description: description,
 			folders: [],
-			preview: ""
+			preview: "",
+			dateLoading: `${new Date().getDate}.${new Date().getMonth()}.${new Date().getFullYear()}`
 		};
 
 		for (let f in files) {
