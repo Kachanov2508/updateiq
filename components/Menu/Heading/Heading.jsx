@@ -14,8 +14,8 @@ const Heading = () => {
 	return (
 		<div className={`${classes.heading} ${toggleActivClass(router.pathname, "/")}`}>
 			<div className={classes.icon}>
-				<FontAwesomeIcon icon={faBrain} size="lg" color="#2196F3" />
-				<FontAwesomeIcon icon={faLevelUpAlt} size="lg" color="#FFC107" />
+				<FontAwesomeIcon icon={faBrain} size="lg" color="#cccccc" />
+				<FontAwesomeIcon icon={faLevelUpAlt} size="lg" color="#cccccc" />
 			</div>
 			<Link href="/" passHref>
 				<h1><span>update</span><span>IQ</span></h1>

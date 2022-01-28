@@ -6,7 +6,6 @@ const Progress = (props) => {
         let rect = e.target.getBoundingClientRect();
         const pos = (e.clientX - rect.left) / e.target.offsetWidth
         props.updateTimeProgess(pos * props.duration);
-        console.table({clientX: e.clientX, rectLeft: rect.left, offsetWidth: e.target.offsetWidth });
     }
 
 

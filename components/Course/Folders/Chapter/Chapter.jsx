@@ -7,28 +7,19 @@ import Icon from "../../../UI/Icon/Icon";
 const Chapter = (props) => {
 	const [open, setOpen] = useState(false);
 
-	const video = props.files.filter((item) => item.fileName.includes(".mp4"));
-	const subtitle = props.files.filter((item) => item.fileName.includes(".vtt"));
-
-	const getSubtitle = (video, subtitle) => {
-		return subtitle.find((sub) => video.replace(".mp4") === sub.fileName.replace(".vtt"));
-	};
-
 	return (
 		<>
 			<div onClick={() => setOpen(!open)} className={classes.chapter}>
 				<Icon icon={open ? faFolderOpen : faFolder} text={props.folderName} />
 			</div>
 			{open &&
-				video.map((item) => (
+				props.video.map((item) => (
 					<Lesson
-						name={item.fileName.replace(/ '.mp4', '.vtt' /, "")}
-						fileUrl={item.fileUrl}
+						name={item.fileName}
 						slugFile={item.slug}
-						courseSlug={props.courseSlug}
-						videoUrl={props.videoUrl}
-						subtitle={getSubtitle(item.fileName, subtitle)}
 						key={item.fileName}
+						courseSlug={props.courseSlug}
+						courseCategory={props.courseCategory}
 					/>
 				))}
 		</>

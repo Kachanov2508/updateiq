@@ -8,10 +8,10 @@ const Folders = (props) => {
 			{props.folders.map((item) => (
 				<Chapter
 					folderName={item.folderName}
-					files={item.files}
+					video={item.video}
 					key={item.folderName}
-					videoUrl={props.videoUrl}
 					courseSlug={props.courseSlug}
+					courseCategory={props.courseCategory}
 				/>
 			))}
 		</div>

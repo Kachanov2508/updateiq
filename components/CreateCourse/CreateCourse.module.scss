@@ -1,0 +1,55 @@
+.createCourse {
+    max-width: 800px;
+    margin-top: 30px;
+
+    .top {
+        display: grid;
+        grid-template-columns: max-content max-content;
+        column-gap: 20px;
+        margin-bottom: 20px;
+    }
+        
+    .center {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        column-gap: 30px;
+        margin-bottom: 20px;
+
+        input, select {
+            padding: 5px 10px;
+            width: 100%;
+            outline: none;
+        }
+    }
+
+    .description {
+        textarea {
+            width: 100%;
+            height: 150px;
+            padding: 10px;
+            outline: none;
+        }
+    }
+
+    .btn {
+        width: 100%;
+        padding: 10px 20px;
+        background-color: #2196F3;
+        color: #f7f7f7;
+        font-weight: 600;
+        outline: none;
+        border: none;
+        cursor: pointer;
+        margin-top: 20px;
+
+        &:disabled {
+            background-color: #F44336;
+            cursor: no-drop;
+        }
+    }
+
+    label {
+        display: block;
+        margin-bottom: 5px;
+    }
+}

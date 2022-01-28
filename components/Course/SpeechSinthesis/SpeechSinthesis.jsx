@@ -36,8 +36,8 @@ const SpeechSinthesis = (props) => {
 
 	return (
 		<VideoPlayer
-				videoUrl={`/uploads/${props.videoUrl}`}
-				subtitleUrl={`/uploads/${props.subtitleUrl}`}
+				videoUrl={`/uploads/${props.courseCategory}/${props.videoUrl}`}
+				subtitleUrl={`/uploads/${props.courseCategory}/${props.subtitleUrl}`}
 				activeCues={activeCues}
 				setActiveCues={setActiveCues}
 				speakVoice={speakVoice}

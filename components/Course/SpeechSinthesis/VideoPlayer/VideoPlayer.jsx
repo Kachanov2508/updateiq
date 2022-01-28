@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlay, faPause, faAngleDoubleLeft, faAngleDoubleRight, faVolumeOff, faExpandArrowsAlt } from '@fortawesome/free-solid-svg-icons'
 import classes from "./VideoPlayer.module.scss";
-// import ToggleSpeakVoice from "../toggleSpeakVoice/toggleSpeakVoice";
+import ToggleSpeakVoice from "../toggleSpeakVoice/toggleSpeakVoice";
 import ToggleSubtitle from "../ToggleSubtitle/ToggleSubtitle";
 
 const VideoPlayer = (props) => {
@@ -109,7 +109,7 @@ const VideoPlayer = (props) => {
 						<span>{`${getHours(duration)}${getMinutes(duration)}:${getSeconds(duration)}`}</span>
 					</div>
 					<div className={classes.toggle}>
-						{/* <ToggleSpeakVoice speakVoice={props.speakVoice} setSpeakVoice={props.setSpeakVoice} /> */}
+						<ToggleSpeakVoice speakVoice={props.speakVoice} setSpeakVoice={props.setSpeakVoice} />
 						<ToggleSubtitle showSubtitle={props.showSubtitle} setShowSubtitle={props.setShowSubtitle} />
 					</div>
 				</div>

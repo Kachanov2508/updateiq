@@ -1,23 +1,32 @@
 import { useRef, useState } from "react";
 import axios from "axios";
 import slugify from "slugify";
+import classes from "./CreateCourse.module.scss";
 
-import "bootstrap/dist/css/bootstrap.css";
+// import "bootstrap/dist/css/bootstrap.css";
 
 const CreateCourse = () => {
 	const [files, setFiles] = useState([]);
+	const [imagePreview, setImagePreview] = useState([])
 	const [author, setAuthor] = useState("");
-	const [category, setCategory] = useState("react");
+	const [category, setCategory] = useState("");
 	const [hours, setHours] = useState("");
 	const [description, setDescription] = useState("");
 	const [load, setLoad] = useState(false);
 
 	const fileRef = useRef();
+	const previewRef = useRef();
 
 	const submitHandler = async (e) => {
 		e.preventDefault();
 
 		setLoad(true);
+
+		// Дата загрузки курса
+		let date = new Date();
+		let day = date.getDate();
+		let month = date.getMonth() < 10 ? `0${date.getMonth() + 1}` : date.getMonth() + 1;
+		let year = date.getFullYear();
 
 		// Объект курса
 		let course = {
@@ -28,9 +37,10 @@ const CreateCourse = () => {
 			duration: hours,
 			description: description,
 			folders: [],
-			preview: "",
-			dateLoading: `${new Date().getDate}.${new Date().getMonth()}.${new Date().getFullYear()}`
+			preview: {},
+			created_at: `${day}.${month}.${year}`
 		};
+		
 
 		for (let f in files) {
 			// Путь к файлу
@@ -47,14 +57,13 @@ const CreateCourse = () => {
 			const fileUrl = files[f].webkitRelativePath;
 			// Slug
 			let slugFile = fileName.replace('.mp4', "");
-			slugFile = slugFile.replace('.srt', "");
 			slugFile = slugFile.replace('.vtt', "");
 			slugFile = slugify(slugFile.toLowerCase(), { remove: /[*+~.()'"!:@]/g });
 			
 			// Удаляем имя файла из директории
 			path.pop();
 			// Директория к папке где будет лежать файл
-			let dirPath = path.join("/");
+			let dirPath = `${category}/${path.join("/")}`;
 
 			const formData = new FormData();
 			formData.append("file", files[f]);
@@ -89,16 +98,24 @@ const CreateCourse = () => {
 			})
 		})
 
-		// Preview - Первое видео в курсе
-		course.preview = course.folders[0].files[0].fileUrl;
+
+		// Загружаем Preview image в папку с курсом
+		const formData = new FormData();
+        formData.append("previewImage", imagePreview[0]);
+        await axios.post("/api/admin/upload/imagePreview", formData, {
+            headers: {
+                "content-type": "multipart/form-data",
+                dirPath: `${category}/${course.name}`,
+            },
+        });
 
 		// Добавляем в объект свойства video и subtitle и фильтруем в них файлы
 		course.folders.map(folder => {
 			if(folder.files.filter(file => file.fileName.includes(".mp4"))) {
 				folder.video = folder.files.filter(file => file.fileName.includes(".mp4"));
 			}
-			if(folder.files.filter(file => file.fileName.includes(".srt"))) {
-				folder.subtitle = folder.files.filter(file => file.fileName.includes(".srt"));
+			if(folder.files.filter(file => file.fileName.includes(".vtt"))) {
+				folder.subtitle = folder.files.filter(file => file.fileName.includes(".vtt"));
 			}
 		});
 
@@ -111,8 +128,8 @@ const CreateCourse = () => {
 				// Удаляем из названия video .mp4
 				folder.video[i].fileName = folder.video[i].fileName.replace(".mp4", "");
 
-				// Удаляем из названия subtitle .srt
-				folder.subtitle[i].fileName = folder.subtitle[i].fileName.replace(".srt", "");
+				// Удаляем из названия subtitle .vtt
+				folder.subtitle[i].fileName = folder.subtitle[i].fileName.replace(".vtt", "");
 				
 				// Удаляем fileNumber у video и subtitle (они больше не нужны после сортировки)
 				delete folder.video[i].fileNumber;
@@ -133,7 +150,15 @@ const CreateCourse = () => {
 		// Удаляем из объекта свойство files
 		course.folders.map(folder => delete folder.files);
 
-		console.log(course);
+
+		// course.preview.image - обложка к курсу
+		course.preview.image = {
+			fileName: imagePreview[0].name,
+			fileUrl: `${course.name}/${imagePreview[0].name}`,
+		};
+
+		// course.preview.video - Первое видео в курсе и субтитры к нему
+		course.preview.video = course.folders[0].video[0];
 
 		// Отправляем объект курса в БД
 		await axios.post("/api/admin/upload/send-data-to-db", course);
@@ -144,33 +169,55 @@ const CreateCourse = () => {
 		setDescription("");
 		setLoad(false);
 		fileRef.current.value = null;
+		previewRef.current.value = null;
 	};
 
 	return (
-		<div className="container">
+		<div className={classes.createCourse}>
 			<form onSubmit={submitHandler}>
-				<input onChange={(e) => setFiles(Array.from(e.target.files))} ref={fileRef} className="form-control mb-3" type="file" directory="" webkitdirectory="" mozdirectory="" />
-				<div className="row">
-					<div className="col-md-4">
-						<input onChange={(e) => setAuthor(e.target.value)} className="form-control mb-3" type="text" value={author} placeholder="Автор курса" />
+
+				<div className={classes.top}>
+					<div className={classes.folder}>
+						<label htmlFor="folder">Папка с курсом</label>
+						<input onChange={(e) => setFiles(Array.from(e.target.files))} id="folder" ref={fileRef} type="file" directory="" webkitdirectory="" mozdirectory="" />
 					</div>
-					<div className="col-md-4">
-						<select className="form-select" value={category} onChange={(e) => setCategory(e.target.value)}>
-							<option value="React">React</option>
-							<option value="Vue">Vue</option>
-							<option value="Angular">Angular</option>
+					
+					<div className={classes.preview}>
+						<label htmlFor="preview">Обложка для курска</label>
+						<input type="file" name="previewImage" id="preview" ref={previewRef} onChange={(e) => setImagePreview(Array.from(e.target.files))} />
+					</div>
+				</div>
+				
+				<div className={classes.center}>
+					<div className={classes.author}>
+						<label htmlFor="author">Автор курска</label>
+						<input onChange={(e) => setAuthor(e.target.value)} type="text" id="author" value={author} />
+					</div>
+
+					<div className={classes.duration}>
+						<label htmlFor="duration">Продолжительность</label>
+						<input onChange={(e) => setHours(e.target.value)} type="text" id="duration" value={hours} />
+					</div>
+
+					<div className={classes.category}>
+						<label htmlFor="category">Категория</label>
+						<select className="form-select" id="category" value={category} onChange={(e) => setCategory(e.target.value)}>
+							<option></option>
+							<option value="react">react</option>
+							<option value="vue">vue</option>
+							<option value="angular">angular</option>
 						</select>
 					</div>
-					<div className="col-md-4">
-						<input onChange={(e) => setHours(e.target.value)} className="form-control mb-3" type="text" value={hours} placeholder="Кол-во часов" />
-					</div>
 				</div>
-				<textarea onChange={(e) => setDescription(e.target.value)} className="form-control mb-3" value={description} placeholder="Описание" />
-				<div className="d-grid gap-2">
-					<button className="btn btn-primary" type="submit" disabled={load}>
-						{load ? "Загрузка..." : "Загрузить"}
-					</button>
+
+				<div className={classes.description}>
+					<label htmlFor="description">Описание</label>
+					<textarea onChange={(e) => setDescription(e.target.value)} id="description" value={description} />
 				</div>
+
+				<button className={classes.btn} type="submit" disabled={load}>
+					{load ? "Загрузка..." : "Загрузить"}
+				</button>
 			</form>
 		</div>
 	);
