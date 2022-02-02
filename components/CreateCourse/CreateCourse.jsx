@@ -8,6 +8,7 @@ import classes from "./CreateCourse.module.scss";
 const CreateCourse = () => {
 	const [files, setFiles] = useState([]);
 	const [imagePreview, setImagePreview] = useState([])
+	const [textPreview, setTextPreview] = useState("")
 	const [author, setAuthor] = useState("");
 	const [category, setCategory] = useState("");
 	const [hours, setHours] = useState("");
@@ -160,6 +161,9 @@ const CreateCourse = () => {
 		// course.preview.video - Первое видео в курсе и субтитры к нему
 		course.preview.video = course.folders[0].video[0];
 
+		// course.preview.textPreview - Краткое описание курса
+		course.preview.text = textPreview;
+
 		// Отправляем объект курса в БД
 		await axios.post("/api/admin/upload/send-data-to-db", course);
 
@@ -167,6 +171,7 @@ const CreateCourse = () => {
 		setAuthor("");
 		setHours("");
 		setDescription("");
+		setTextPreview("")
 		setLoad(false);
 		fileRef.current.value = null;
 		previewRef.current.value = null;
@@ -210,6 +215,10 @@ const CreateCourse = () => {
 					</div>
 				</div>
 
+				<div className={classes.textPreview}>
+					<label htmlFor="textPreview">Краткое описание</label>
+					<textarea onChange={(e) => setTextPreview(e.target.value)} id="textPreview" value={textPreview} />
+				</div>
 				<div className={classes.description}>
 					<label htmlFor="description">Описание</label>
 					<textarea onChange={(e) => setDescription(e.target.value)} id="description" value={description} />

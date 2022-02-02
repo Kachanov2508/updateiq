@@ -8,12 +8,12 @@ const Category = (props) => {
 	const router = useRouter();
 
 	function toggleActivClass(path, link) {
-		return path == link ? `${classes.activ}` : "";
+		return path == link.replace("/", "") ? `${classes.activ}` : "";
 	}
 
 	return (
 		<Link href={props.link || "/"} passHref>
-			<div className={`${classes.category} ${toggleActivClass(router.asPath, props.link)}`}>
+			<div className={`${classes.category} ${toggleActivClass(router.query.courses, props.link)}`}>
 				<FontAwesomeIcon icon={props.icon} size={props.size} color={props.color} />
 				<h2>{props.name}</h2>
 			</div>

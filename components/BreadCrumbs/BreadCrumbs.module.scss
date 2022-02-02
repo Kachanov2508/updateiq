@@ -1,0 +1,30 @@
+.breadCrumbs {
+    padding: 15px 10px;
+    background-color: rgba(255, 255, 255, 0.05);
+
+    ul {
+        list-style: none;
+        display: flex;
+        align-items: center;
+        column-gap: 10px;
+    }
+
+    ul li {
+        text-transform: capitalize;
+        margin: 0;
+    }
+    
+    ul li:not(:last-child) {
+        cursor: pointer;
+        &:after {
+            content: ">";
+            margin-left: 10px;
+        }
+    }
+
+    ul li:last-child {
+        // font-size: 20px;
+        // font-weight: 500;
+        cursor: default;
+    }
+}

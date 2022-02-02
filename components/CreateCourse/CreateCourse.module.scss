@@ -22,6 +22,15 @@
         }
     }
 
+    .textPreview {
+        textarea {
+            width: 100%;
+            height: 55px;
+            padding: 10px;
+            outline: none;
+        }
+    }
+
     .description {
         textarea {
             width: 100%;

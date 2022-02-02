@@ -1,21 +1,21 @@
 import classes from "./Course.module.scss";
 import SpeechSynthesis from "./SpeechSinthesis/SpeechSinthesis";
-import Content from "./Content/Content";
-import Folders from "./Folders/Folders";
+import CourseDescription from "./CourseDescription/CourseDescription";
+import CourseFolders from "./CourseFolders/CourseFolders";
 
 const Course = (props) => {
 
 	return (
 		<div className={classes.course}>
-			<h1 className={classes.heading}>{props.course.name}</h1>
+			<h1 className={classes.heading}>{props.name}</h1>
 			<div className={classes.video}>
-				<SpeechSynthesis videoUrl={props.course.video.fileUrl} subtitleUrl={props.course.video.subtitle.fileUrl} courseCategory={props.course.category} />
+				<SpeechSynthesis videoUrl={props.videoUrl} subtitleUrl={props.subtitleUrl} courseCategory={props.courseCategory} />
 			</div>
 			<div className={classes.folders}>
-				<Folders folders={props.course.folders} courseSlug={props.course.slug} courseCategory={props.course.category} />
+				<CourseFolders folders={props.folders} courseSlug={props.courseSlug} courseCategory={props.courseCategory} />
 			</div>
 			<div className={classes.content}>
-				<Content author={props.course.author} duration={props.course.duration} description={props.course.description} createdAt={props.course.created_at} />
+				<CourseDescription author={props.author} duration={props.duration} description={props.description} createdAt={props.createdAt} />
 			</div>
 		</div>
 	);

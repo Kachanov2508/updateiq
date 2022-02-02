@@ -1,26 +1,38 @@
 import axios from "axios";
-import Course from "../../../../components/Course/Course";
+import classes from "../../../../styles/LessonPage.module.scss";
+import SpeechSynthesis from "../../../../components/Course/SpeechSinthesis/SpeechSinthesis";
+import CourseFolders from "../../../../components/Course/CourseFolders/CourseFolders";
+import { useRouter } from "next/router";
+import BreadCrumbs from "../../../../components/BreadCrumbs/BreadCrumbs";
 
-const Lesson = ({course}) => {
+const LessonPage = ({ course }) => {
 
-    return (
-      <div>
-          <Course course={course} />
-      </div>
-    );
-  };
-  
-  export default Lesson;
-  
+	const router = useRouter();
 
-  export async function getServerSideProps(context) {
+	return (
+		<div className={classes.container}>
+			<div className={classes.video}>
+				<div className={classes.breadCrumbs}>
+					<BreadCrumbs />
+				</div>
+				<SpeechSynthesis videoUrl={course.video.fileUrl} subtitleUrl={course.video.subtitle.fileUrl} courseCategory={course.category} />
+			</div>
+			<div className={classes.folders}>
+				<CourseFolders folders={course.folders} courseSlug={course.slug} courseCategory={course.category} />
+			</div>
+		</div>
+	);
+};
 
-    const response = await axios.get(`${process.env.domain}/api/${context.params.courses}/${context.params.course}/${context.params.lesson}`);
-    const course = await response.data;
+export default LessonPage;
 
-    return {
-      props: {
-        course: course
-      }
-    }
-  }
+export async function getServerSideProps(context) {
+	const response = await axios.get(`${process.env.domain}/api/${context.params.courses}/${context.params.course}/${context.params.lesson}`);
+	const course = await response.data;
+
+	return {
+		props: {
+			course: course,
+		},
+	};
+}
