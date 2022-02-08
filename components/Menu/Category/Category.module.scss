@@ -4,6 +4,10 @@
     column-gap: 10px;
     cursor: pointer;
     padding: 15px 20px;
+    border-left: 2px solid transparent;
+    border-top: 2px solid transparent;
+    border-right: 4px solid transparent;
+    border-bottom: 2px solid transparent;
 
     & h2 {
         font-size: 18px;
@@ -13,9 +17,20 @@
     
     &:hover {
         background-color: rgba(255, 255, 255, 0.05);
+        border-right: 2px solid transparent;
     }
 }
 
 .activ {
-    background-color: rgba(255, 255, 255, 0.05);
+    border-left: 2px solid rgba(255, 255, 255, 0.1);
+    border-top: 2px solid rgba(255, 255, 255, 0.1);
+    border-right: 4px solid #121212;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+    margin-left: 10px;
+
+    &:hover {
+        background: none;
+        border-right: 2px solid #121212;
+    }
+    
 }

@@ -1,5 +1,7 @@
 import { useRouter } from "next/router";
 import classes from "./BreadCrumbs.module.scss";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
 
 const BreadCrumbs = () => {
 	const router = useRouter();
@@ -19,11 +21,23 @@ const BreadCrumbs = () => {
 		<nav className={classes.breadCrumbs}>
 			<ul>
 				{routerQuery.map((item, index) => {
-					return (
-						<li key={item} onClick={() => clickHandler(index)}>
-							{item.replaceAll("-", " ")}
-						</li>
-					);
+					// Добавляем onClick всем элементам кроме последнего
+					if (index !== routerQuery.length - 1) {
+						return (
+							<li key={item}>
+								<span className={classes.link} onClick={() => clickHandler(index)}>
+									{item.replaceAll("-", " ")}
+								</span>
+								<FontAwesomeIcon icon={faAngleRight} color="#cccccc" />
+							</li>
+						);
+					} else {
+						return (
+							<li key={item}>
+								{item.replaceAll("-", " ")}
+							</li>
+						)
+					}
 				})}
 			</ul>
 		</nav>

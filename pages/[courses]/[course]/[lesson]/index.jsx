@@ -2,13 +2,9 @@ import axios from "axios";
 import classes from "../../../../styles/LessonPage.module.scss";
 import SpeechSynthesis from "../../../../components/Course/SpeechSinthesis/SpeechSinthesis";
 import CourseFolders from "../../../../components/Course/CourseFolders/CourseFolders";
-import { useRouter } from "next/router";
 import BreadCrumbs from "../../../../components/BreadCrumbs/BreadCrumbs";
 
-const LessonPage = ({ course }) => {
-
-	const router = useRouter();
-
+export default function LessonPage({ course }) {
 	return (
 		<div className={classes.container}>
 			<div className={classes.video}>
@@ -22,11 +18,9 @@ const LessonPage = ({ course }) => {
 			</div>
 		</div>
 	);
-};
+}
 
-export default LessonPage;
-
-export async function getServerSideProps(context) {
+export async function getStaticProps(context) {
 	const response = await axios.get(`${process.env.domain}/api/${context.params.courses}/${context.params.course}/${context.params.lesson}`);
 	const course = await response.data;
 
@@ -34,5 +28,24 @@ export async function getServerSideProps(context) {
 		props: {
 			course: course,
 		},
+	};
+}
+
+export async function getStaticPaths() {
+	const response = await axios.get(`${process.env.domain}/api/all-courses`);
+	const courses = await response.data;
+
+	let paths = [];
+	courses.data.map((course) => {
+		course.folders.map((folder) => {
+			folder.video.map((video) => {
+				paths.push({ params: { courses: course.category, course: course.slug, lesson: video.slug } });
+			});
+		});
+	});
+
+	return {
+		paths: paths,
+		fallback: false,
 	};
 }
