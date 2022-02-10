@@ -3,20 +3,35 @@ import classes from "../../../../styles/LessonPage.module.scss";
 import SpeechSynthesis from "../../../../components/Course/SpeechSinthesis/SpeechSinthesis";
 import CourseFolders from "../../../../components/Course/CourseFolders/CourseFolders";
 import BreadCrumbs from "../../../../components/BreadCrumbs/BreadCrumbs";
+import Head from "next/head";
 
 export default function LessonPage({ course }) {
 	return (
-		<div className={classes.container}>
-			<div className={classes.video}>
-				<div className={classes.breadCrumbs}>
-					<BreadCrumbs />
+		<>
+			<Head>
+				<title>{course.name}</title>
+				<meta name="robots" content="noindex" />
+			</Head>
+			<div className={classes.container}>
+				<div className={classes.video}>
+					<div className={classes.breadCrumbs}>
+						<BreadCrumbs />
+					</div>
+					<SpeechSynthesis 
+						videoUrl={course.video.fileUrl} 
+						subtitleUrl={course.video.subtitle.fileUrl} 
+						courseCategory={course.category} 
+					/>
 				</div>
-				<SpeechSynthesis videoUrl={course.video.fileUrl} subtitleUrl={course.video.subtitle.fileUrl} courseCategory={course.category} />
+				<div className={classes.folders}>
+					<CourseFolders 
+						folders={course.folders} 
+						courseSlug={course.slug} 
+						courseCategory={course.category} 
+					/>
+				</div>
 			</div>
-			<div className={classes.folders}>
-				<CourseFolders folders={course.folders} courseSlug={course.slug} courseCategory={course.category} />
-			</div>
-		</div>
+		</>
 	);
 }
 
