@@ -5,7 +5,9 @@ import CourseFolders from "../../../../components/Course/CourseFolders/CourseFol
 import BreadCrumbs from "../../../../components/BreadCrumbs/BreadCrumbs";
 import Head from "next/head";
 
-export default function LessonPage({ course }) {
+export default function LessonPage({ course, video }) {
+
+	console.log(course)
 	return (
 		<>
 			<Head>
@@ -18,8 +20,8 @@ export default function LessonPage({ course }) {
 						<BreadCrumbs />
 					</div>
 					<SpeechSynthesis 
-						videoUrl={course.video.fileUrl} 
-						subtitleUrl={course.video.subtitle.fileUrl} 
+						videoUrl={video.fileUrl} 
+						subtitleUrl={video.subtitle.fileUrl} 
 						courseCategory={course.category} 
 					/>
 				</div>
@@ -37,11 +39,12 @@ export default function LessonPage({ course }) {
 
 export async function getStaticProps(context) {
 	const response = await axios.get(`${process.env.domain}/api/${context.params.courses}/${context.params.course}/${context.params.lesson}`);
-	const course = await response.data;
+	const data = await response.data;
 
 	return {
 		props: {
-			course: course,
+			course: data.course,
+			video: data.video
 		},
 	};
 }

@@ -18,10 +18,10 @@ async function handler(req, res) {
         }
     })
 
-    const { name, category, author, duration, description, folders, slug, created_at } = course;
+    // const { name, category, author, duration, description, folders, slug, created_at } = course;
 
     if(req.method === "GET") {
-        res.status(200).json({ name, category, author, duration, description, folders, slug, created_at, video });
+        res.status(200).json({ course, video });
     }
 
     client.close();
