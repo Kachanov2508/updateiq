@@ -5,7 +5,10 @@ import classes from "../../../styles/CoursePage.module.scss";
 import CoursePreview from "../../../components/CourseList/CoursePreview/CoursePreview";
 import Head from "next/head";
 
-export default function CoursePage({ course }) {
+import { MongoClient } from "mongodb";
+
+
+export default function CoursePage({course}) {
 
 	return (
 			<>
@@ -42,24 +45,44 @@ export default function CoursePage({ course }) {
 
 
 export async function getStaticProps(context) {
+	const client = await MongoClient.connect("mongodb://Kachanov2508:Pasword2508@updateiq-shard-00-00.ljmla.mongodb.net:27017,updateiq-shard-00-01.ljmla.mongodb.net:27017,updateiq-shard-00-02.ljmla.mongodb.net:27017/updateiq?ssl=true&replicaSet=atlas-13t95v-shard-0&authSource=admin&retryWrites=true&w=majority")
+    
+	const db = client.db();
 
-	const res = await axios.get(`${process.env.domain}/api/${context.params.courses}/${context.params.course}`);
-	const course = await res.data;
+    const collection = db.collection("courses");
+
+    const course = await collection.findOne({slug: context.params.course});
 
 	return {
 		props: {
-			course: course.data,
+			course: {
+				name: course.name,
+				author: course.author,
+				category: course.category,
+				duration: course.duration,
+				description: course.description,
+				slug: course.slug,
+				created_at: course.created_at,
+				preview: course.preview,
+				folders: course.folders,
+			},
 		},
 	};
 }
 
 export async function getStaticPaths() {
 
-	const response = await axios.get(`${process.env.domain}/api/all-courses`);
-	const courses = await response.data;
+	const client = await MongoClient.connect("mongodb://Kachanov2508:Pasword2508@updateiq-shard-00-00.ljmla.mongodb.net:27017,updateiq-shard-00-01.ljmla.mongodb.net:27017,updateiq-shard-00-02.ljmla.mongodb.net:27017/updateiq?ssl=true&replicaSet=atlas-13t95v-shard-0&authSource=admin&retryWrites=true&w=majority")
+    
+	const db = client.db();
+
+    const collection = db.collection("courses");
+
+    const courses = await collection.find().toArray();
+
 
 	let paths = [];
-	await courses.data.map(course => {
+	courses.map(course => {
 		paths.push({ params: { courses: course.category, course: course.slug } })
 	})
 

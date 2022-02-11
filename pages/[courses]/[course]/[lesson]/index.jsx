@@ -4,10 +4,10 @@ import SpeechSynthesis from "../../../../components/Course/SpeechSinthesis/Speec
 import CourseFolders from "../../../../components/Course/CourseFolders/CourseFolders";
 import BreadCrumbs from "../../../../components/BreadCrumbs/BreadCrumbs";
 import Head from "next/head";
+import { MongoClient } from "mongodb";
 
-export default function LessonPage({ course, video }) {
+export default function LessonPage({ course }) {
 
-	console.log(course)
 	return (
 		<>
 			<Head>
@@ -20,8 +20,8 @@ export default function LessonPage({ course, video }) {
 						<BreadCrumbs />
 					</div>
 					<SpeechSynthesis 
-						videoUrl={video.fileUrl} 
-						subtitleUrl={video.subtitle.fileUrl} 
+						videoUrl={course.video.fileUrl} 
+						subtitleUrl={course.video.subtitle.fileUrl} 
 						courseCategory={course.category} 
 					/>
 				</div>
@@ -38,23 +38,48 @@ export default function LessonPage({ course, video }) {
 }
 
 export async function getStaticProps(context) {
-	const response = await axios.get(`${process.env.domain}/api/${context.params.courses}/${context.params.course}/${context.params.lesson}`);
-	const data = await response.data;
+
+    const client = await MongoClient.connect("mongodb://Kachanov2508:Pasword2508@updateiq-shard-00-00.ljmla.mongodb.net:27017,updateiq-shard-00-01.ljmla.mongodb.net:27017,updateiq-shard-00-02.ljmla.mongodb.net:27017/updateiq?ssl=true&replicaSet=atlas-13t95v-shard-0&authSource=admin&retryWrites=true&w=majority")
+    const db = client.db();
+
+    const collection = db.collection("courses");
+
+    const course = await collection.findOne({slug: context.params.course});
+
+    let video;
+    course.folders.map(folder => {
+        let search = folder.video.find(video => video.slug === context.params.lesson);
+        if(search) {
+            video = search
+            return;
+        }
+    })
 
 	return {
 		props: {
-			course: data.course,
-			video: data.video
+			course: {
+				name: course.name,
+				category: course.category,
+				folders: course.folders,
+				slug: course.slug,
+				video: video
+			}
 		},
 	};
 }
 
 export async function getStaticPaths() {
-	const response = await axios.get(`${process.env.domain}/api/all-courses`);
-	const courses = await response.data;
+	
+	const client = await MongoClient.connect("mongodb://Kachanov2508:Pasword2508@updateiq-shard-00-00.ljmla.mongodb.net:27017,updateiq-shard-00-01.ljmla.mongodb.net:27017,updateiq-shard-00-02.ljmla.mongodb.net:27017/updateiq?ssl=true&replicaSet=atlas-13t95v-shard-0&authSource=admin&retryWrites=true&w=majority")
+    
+	const db = client.db();
+
+    const collection = db.collection("courses");
+
+    const courses = await collection.find().toArray();
 
 	let paths = [];
-	await courses.data.map((course) => {
+	courses.map((course) => {
 		course.folders.map((folder) => {
 			folder.video.map((video) => {
 				paths.push({ params: { courses: course.category, course: course.slug, lesson: video.slug } });

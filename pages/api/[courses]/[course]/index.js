@@ -11,6 +11,8 @@ async function handler(req, res) {
     if(req.method === "GET") {
         res.status(200).json({data: course});
     }
+
+    client.close();
 }
 
 export default handler;
