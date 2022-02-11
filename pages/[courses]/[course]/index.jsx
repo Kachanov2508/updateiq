@@ -59,7 +59,7 @@ export async function getStaticPaths() {
 	const courses = await response.data;
 
 	let paths = [];
-	courses.data.map(course => {
+	await courses.data.map(course => {
 		paths.push({ params: { courses: course.category, course: course.slug } })
 	})
 
