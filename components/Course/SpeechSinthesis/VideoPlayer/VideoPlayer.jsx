@@ -1,8 +1,8 @@
 import { useRef, useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlay, faPause, faAngleDoubleLeft, faAngleDoubleRight, faVolumeOff, faExpandArrowsAlt } from '@fortawesome/free-solid-svg-icons'
+import { faPlay, faPause, faAngleDoubleLeft, faAngleDoubleRight, faExpandArrowsAlt } from '@fortawesome/free-solid-svg-icons'
 import classes from "./VideoPlayer.module.scss";
-import ToggleSpeakVoice from "../toggleSpeakVoice/toggleSpeakVoice";
+import ToggleSpeakVoice from "../ToggleSpeakVoices/toggleSpeakVoice";
 import ToggleSubtitle from "../ToggleSubtitle/ToggleSubtitle";
 
 const VideoPlayer = (props) => {

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import CreateCourse from "../../components/CreateCourse/CreateCourse";
 
-const upload = () => {
+const Upload = () => {
     const [login, setLogin] = useState("");
     const [password, setPassword] = useState("");
     const [admin, setAdmin] = useState(false);
@@ -40,4 +40,4 @@ const upload = () => {
     );
 };
 
-export default upload;
+export default Upload;
