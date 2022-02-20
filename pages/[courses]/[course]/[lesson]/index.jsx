@@ -55,6 +55,8 @@ export async function getStaticProps(context) {
         }
     })
 
+	client.close();
+
 	return {
 		props: {
 			course: {

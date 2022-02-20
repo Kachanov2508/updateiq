@@ -5,5 +5,5 @@ module.exports = {
     // domain: "updateiq.ru",
     // domain: "https://updateiq.herokuapp.com",
     // domain: "https://updateiq.vercel.app",
-  }
+  },
 }

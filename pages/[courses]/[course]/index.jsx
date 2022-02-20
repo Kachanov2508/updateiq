@@ -53,6 +53,8 @@ export async function getStaticProps(context) {
 
     const course = await collection.findOne({slug: context.params.course});
 
+	client.close();
+
 	return {
 		props: {
 			course: {
