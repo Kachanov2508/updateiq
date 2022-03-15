@@ -1,24 +1,47 @@
 .wrapper {
     display: flex;
     align-items: center;
-    justify-content: center;
-    padding: 10px;
+    justify-content: space-between;
+    padding: 10px 30px;
     border-bottom: 2px solid rgba(255, 255, 255, 0.1);
 }
 
 .search {
     display: flex;
     align-items: center;
-    column-gap: 10px;
-    background-color: rgba(255, 255, 255, 0.05);
-    padding: 0 10px;
+    justify-content: center;
+    flex: 1;
+    margin-right: 30px;
+    
+    .bcg {
+        padding: 0 15px;
+        background-color: rgba(255, 255, 255, 0.05);
+        input {
+            background: none;
+            border: none;
+            outline: none;
+            color: inherit;
+            padding: 10px 15px;
+            width: 500px;
+        }
+    }
+}
 
-    input {
-        background: none;
+.auth {
+    display: flex;
+    justify-content: flex-end;
+    width: 300px;
+
+    .button {
         border: none;
         outline: none;
-        color: inherit;
-        padding: 10px 0;
-        width: 500px;
+        background-color: #2196F3;
+        padding: 7px 25px;
+        color: #f7f7f7;
+        cursor: pointer;
+
+        &:active {
+            transform: scale(0.98);
+        }
     }
 }
